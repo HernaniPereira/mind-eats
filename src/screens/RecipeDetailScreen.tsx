@@ -51,6 +51,7 @@ export const RecipeDetailScreen = () => {
 				id: recipeDetail.id,
 				title: recipeDetail.name,
 				image: recipeDetail.image,
+				category: recipeDetail.cuisine,
 			});
 		}
 	};

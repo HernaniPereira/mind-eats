@@ -15,12 +15,22 @@ import { useRecipes } from "../hooks/useRecipes";
 import { useAppNavigation } from "../navigation/types";
 import { SearchBar } from "../components/SearchBar";
 import { IconFavorite } from "../../assets/icons/IconFavorite";
+import { useShallow } from "zustand/shallow";
+import { useFavoritesStore } from "../store/useFavoriteStore";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 60) / 2;
 
 const RecipeCardItem = memo(
-	({ item, onPress }: { item: TRecipe; onPress: () => void }) => (
+	({
+		item,
+		onPress,
+		isFavorite,
+	}: {
+		item: TRecipe;
+		onPress: () => void;
+		isFavorite: boolean;
+	}) => (
 		<TouchableOpacity
 			onPress={onPress}
 			style={styles.cardContainer}
@@ -29,9 +39,11 @@ const RecipeCardItem = memo(
 			<View style={{ position: "relative" }}>
 				<Image source={{ uri: item.image }} style={styles.cardImage} />
 
-				<TouchableOpacity style={styles.favoriteButton} activeOpacity={0.8}>
-					<IconFavorite size={22} />
-				</TouchableOpacity>
+				{isFavorite && (
+					<View style={styles.favoriteButton}>
+						<IconFavorite size={20} color="#64B313" />
+					</View>
+				)}
 			</View>
 			<View style={styles.cardTextContainer}>
 				<Text style={styles.categoryText}>{item.cuisine.toUpperCase()}</Text>
@@ -47,6 +59,13 @@ export const HomeScreen = () => {
 	const { loading, recipes, error } = useRecipes();
 	const navigation = useAppNavigation();
 
+	const { favorites, isFavourite } = useFavoritesStore(
+		useShallow((state) => ({
+			favorites: state.favorites,
+			isFavourite: state.isFavourite,
+		})),
+	);
+
 	const handleSelect = useCallback(
 		(id: string) => {
 			navigation.navigate("Detail", { id });
@@ -56,9 +75,13 @@ export const HomeScreen = () => {
 
 	const renderItem = useCallback(
 		({ item }: { item: TRecipe }) => (
-			<RecipeCardItem item={item} onPress={() => handleSelect(item.id)} />
+			<RecipeCardItem
+				item={item}
+				onPress={() => handleSelect(item.id)}
+				isFavorite={isFavourite?.(item.id) ?? false}
+			/>
 		),
-		[handleSelect],
+		[handleSelect, favorites],
 	);
 	return (
 		<SafeAreaView style={{ marginHorizontal: 16 }}>
@@ -128,25 +151,24 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 10,
 		right: 10,
-		backgroundColor: "rgba(0,0,0,0.35)",
+		width: 40,
+		height: 35,
+		alignContent: "center",
+		alignItems: "center",
+		justifyContent: "center",
 		borderRadius: 20,
-		padding: 5,
+		backgroundColor: "#D1F6AC",
 	},
 	cardContainer: {
 		width: CARD_WIDTH,
-		backgroundColor: "#fff",
-		borderRadius: 12,
 		margin: 8,
 		overflow: "hidden",
-		shadowColor: "#000",
-		shadowOpacity: 0.05,
-		shadowOffset: { width: 0, height: 2 },
 		shadowRadius: 4,
-		elevation: 2,
 	},
 	cardImage: {
 		width: "100%",
 		height: 120,
+		borderRadius: 20,
 	},
 	cardTextContainer: {
 		padding: 8,
