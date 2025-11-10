@@ -7,7 +7,11 @@
 		"android": "expo run:android",
 		"ios": "expo run:ios",
 		"test": "jest",
-		"test:watch": "jest --watch"
+		"test:watch": "jest --watch",
+		"detox-ios-build": "npx detox build --configuration ios.sim.debug",
+		"detox-ios-test": "npx detox test --configuration ios.sim.debug",
+		"detox:build:a": "detox build --configuration android.emu.release",
+		"detox:test:a": "detox test --configuration android.emu.release"
 	},
 	"dependencies": {
 		"@react-native-async-storage/async-storage": "2.2.0",

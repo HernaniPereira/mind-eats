@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { TabNavigator } from "./src/navigation/AppNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { RecipeDetailScreen } from "./src/screens/RecipeDetailScreen";
+import { RecipeDetailScreen } from "./src/screens/RecipeDetailScreen/RecipeDetailScreen";
 
 export type RootStackParamList = {
 	Tabs: undefined;

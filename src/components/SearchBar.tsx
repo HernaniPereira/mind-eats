@@ -1,11 +1,11 @@
 import { memo, useCallback, useState } from "react";
 import { View, TextInput } from "react-native";
-import { useSearchStore } from "../store/useSearchStore";
 import { IconSearch } from "../../assets/icons/IconSearch";
+import { useRecipeStore } from "../store/useRecipeStore";
 
 export const SearchBar = memo(({ dataTestId }: { dataTestId: string }) => {
 	const [searchText, setSearchText] = useState("");
-	const { setSearchTerm } = useSearchStore.getState();
+	const { setSearchTerm } = useRecipeStore.getState();
 
 	const onChangeText = useCallback((text: string) => {
 		setSearchText(text);

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { getRecipeDetails, listRecipes, searchRecipes } from "../api/recipes";
-import { TRecipe, TRecipeDetailResponse } from "../api/recipes.types";
+import type { TRecipe, TRecipeDetailResponse } from "../api/recipes.types";
 import { useShallow } from "zustand/shallow";
-import { useSearchStore } from "../store/useSearchStore";
+import { useRecipeStore } from "../store/useRecipeStore";
 
 export const useRecipes = () => {
 	const [loading, setLoading] = useState(false);
@@ -11,11 +11,13 @@ export const useRecipes = () => {
 
 	const [error, setError] = useState<string | null>(null);
 
-	const { searchTerm } = useSearchStore(
+	const { searchTerm } = useRecipeStore(
 		useShallow((state) => ({
 			searchTerm: state.searchTerm,
 		})),
 	);
+
+	const { setRecipe } = useRecipeStore.getState();
 
 	useEffect(() => {
 		let mount = true;
@@ -63,7 +65,7 @@ export const useRecipes = () => {
 		try {
 			setLoading(true);
 			const data = await getRecipeDetails(Number(id));
-			setRecipeDetail(data);
+			setRecipe(data);
 		} finally {
 			setLoading(false);
 		}

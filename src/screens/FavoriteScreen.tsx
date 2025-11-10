@@ -1,6 +1,5 @@
 import React from "react";
 import {
-	Button,
 	FlatList,
 	Text,
 	View,
@@ -10,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useShallow } from "zustand/shallow";
-import { useFavoritesStore, Recipe } from "../store/useFavoriteStore";
+import { useFavoritesStore, type Recipe } from "../store/useFavoriteStore";
 import { IconFavorite } from "../../assets/icons/IconFavorite";
 
 export const FavoriteScreen = () => {
