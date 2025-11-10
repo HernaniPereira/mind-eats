@@ -2,6 +2,7 @@ export type TRecipe = {
 	id: string;
 	name: string;
 	image: string;
+	mealType: string[];
 };
 
 export type TRecipeListResponse = {

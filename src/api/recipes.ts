@@ -9,7 +9,7 @@ export const listRecipes = async (
 		params: {
 			limit,
 			skip,
-			select: "name,image",
+			select: "name,image,mealType",
 		},
 	});
 	return res.data;
