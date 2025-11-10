@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { TRecipe } from "../api/recipes.types";
-import { useRecipes } from "../components/useRecipes";
+import { useRecipes } from "../hooks/useRecipes";
 import { useAppNavigation } from "../navigation/types";
 import { SearchBar } from "../components/SearchBar";
 import { IconFavorite } from "../../assets/icons/IconFavorite";
@@ -34,11 +34,7 @@ const RecipeCardItem = memo(
 				</TouchableOpacity>
 			</View>
 			<View style={styles.cardTextContainer}>
-				{item.mealType?.length >= 1 && (
-					<Text style={styles.categoryText}>
-						{item.mealType[0].toUpperCase()}
-					</Text>
-				)}
+				<Text style={styles.categoryText}>{item.cuisine.toUpperCase()}</Text>
 				<Text style={styles.recipeName} numberOfLines={2}>
 					{item.name}
 				</Text>

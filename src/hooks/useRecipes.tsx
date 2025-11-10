@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { listRecipes, searchRecipes } from "../api/recipes";
-import { TRecipe } from "../api/recipes.types";
+import { useCallback, useEffect, useState } from "react";
+import { getRecipeDetails, listRecipes, searchRecipes } from "../api/recipes";
+import { TRecipe, TRecipeDetailResponse } from "../api/recipes.types";
 import { useShallow } from "zustand/shallow";
 import { useSearchStore } from "../store/useSearchStore";
 
 export const useRecipes = () => {
 	const [loading, setLoading] = useState(false);
 	const [recipes, setRecipes] = useState<TRecipe[]>([]);
+	const [recipeDetail, setRecipeDetail] = useState<TRecipeDetailResponse>();
 
 	const [error, setError] = useState<string | null>(null);
 
@@ -58,5 +59,15 @@ export const useRecipes = () => {
 		};
 	}, [searchTerm]);
 
-	return { loading, recipes, error };
+	const getDetail = useCallback(async (id: string) => {
+		try {
+			setLoading(true);
+			const data = await getRecipeDetails(Number(id));
+			setRecipeDetail(data);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
+
+	return { loading, recipes, error, getDetail, recipeDetail };
 };

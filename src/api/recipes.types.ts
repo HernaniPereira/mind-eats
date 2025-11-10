@@ -2,7 +2,7 @@ export type TRecipe = {
 	id: string;
 	name: string;
 	image: string;
-	mealType: string[];
+	cuisine: string;
 };
 
 export type TRecipeListResponse = {
@@ -19,4 +19,8 @@ export type TRecipeDetailResponse = {
 	image: string;
 	instructions: string[];
 	ingredients: string[];
+	tags: string[];
+	servings: number;
+	mealType: string[];
+	cookTimeMinutes: number;
 };
