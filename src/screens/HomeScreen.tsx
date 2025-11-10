@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback } from "react";
 import {
 	ActivityIndicator,
 	FlatList,
@@ -35,6 +35,7 @@ const RecipeCardItem = memo(
 			onPress={onPress}
 			style={styles.cardContainer}
 			activeOpacity={0.8}
+			testID="recipe-item"
 		>
 			<View style={{ position: "relative" }}>
 				<Image source={{ uri: item.image }} style={styles.cardImage} />
@@ -46,7 +47,9 @@ const RecipeCardItem = memo(
 				)}
 			</View>
 			<View style={styles.cardTextContainer}>
-				<Text style={styles.categoryText}>{item.cuisine.toUpperCase()}</Text>
+				{item.cuisine && (
+					<Text style={styles.categoryText}>{item.cuisine?.toUpperCase()}</Text>
+				)}
 				<Text style={styles.recipeName} numberOfLines={2}>
 					{item.name}
 				</Text>
@@ -88,7 +91,7 @@ export const HomeScreen = () => {
 			<Text style={styles.logoText}>
 				Mind<Text style={{ color: "#95E64C" }}>Eats</Text>
 			</Text>
-			<SearchBar />
+			<SearchBar dataTestId="search-bar" />
 			<Text style={styles.sectionTitle}>Popular</Text>
 
 			{loading && (

@@ -3,7 +3,7 @@ import { View, TextInput } from "react-native";
 import { useSearchStore } from "../store/useSearchStore";
 import { IconSearch } from "../../assets/icons/IconSearch";
 
-export const SearchBar = memo(() => {
+export const SearchBar = memo(({ dataTestId }: { dataTestId: string }) => {
 	const [searchText, setSearchText] = useState("");
 	const { setSearchTerm } = useSearchStore.getState();
 
@@ -17,6 +17,7 @@ export const SearchBar = memo(() => {
 
 	return (
 		<View
+			testID={dataTestId}
 			style={{
 				marginTop: 24,
 				backgroundColor: "#fff",
@@ -31,6 +32,7 @@ export const SearchBar = memo(() => {
 			>
 				<IconSearch />
 				<TextInput
+					testID={`${dataTestId}-search-input`}
 					value={searchText}
 					onChangeText={onChangeText}
 					placeholder="Search for Recipes"

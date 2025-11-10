@@ -57,7 +57,7 @@ export const RecipeDetailScreen = () => {
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView testID="detail-screen">
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{/* --- Header Image + Back Button --- */}
 				<View style={styles.imageContainer}>
@@ -149,6 +149,21 @@ export const RecipeDetailScreen = () => {
 		</SafeAreaView>
 	);
 };
+
+// const Header = () => {
+
+// 	const navigation = useAppNavigation();
+
+// 	return (<View style={styles.imageContainer}>
+// 					<Image source={{ uri: recipeDetail.image }} style={styles.image} />
+// 					<TouchableOpacity
+// 						style={styles.backButton}
+// 						onPress={() => navigation.goBack()}
+// 					>
+// 						<IconLeftArrow />
+// 					</TouchableOpacity>
+// 				</View>)
+// }
 
 const styles = StyleSheet.create({
 	container: {
