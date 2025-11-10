@@ -84,7 +84,7 @@ export const HomeScreen = () => {
 		[handleSelect, favorites],
 	);
 	return (
-		<SafeAreaView style={{ marginHorizontal: 16 }}>
+		<SafeAreaView style={{ marginHorizontal: 16 }} testID="home-screen">
 			<Text style={styles.logoText}>
 				Mind<Text style={{ color: "#95E64C" }}>Eats</Text>
 			</Text>
